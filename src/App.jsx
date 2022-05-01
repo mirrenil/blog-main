@@ -1,15 +1,18 @@
 import React from "react";
-import { useState, useEffect } from "react";
+//import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Create from "./pages/Create";
-import BlogDetails from "./pages/BlogDetails";
+import Home from "./Home";
+//import Create from "./Create";
+import BlogDetails from "./BlogDetails";
+import Profile from "./components/Profile";
 //import NotFound from "./NotFound";
 import Layout from "./Layout";
-import Auth from "./pages/Auth";
-import Profile from "./pages/Profile";
-import { Navigate } from "react-router-dom";
 import AuthProvider from "./contexts/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import ForgotPassword from "./components/ForgotPassword";
+import UpdateProfile from "./components/UpdateProfile";
 
 function App() {
   // const [user, setUser] = useState(null);
@@ -29,14 +32,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-
             <Route path="/blogs/:id" element={<BlogDetails />} />
-            {/* 
-          <Route
-            path="/profile"
-            element={<Profile logout={() => setUser(false)} />}
-          /> */}
-            <Route path="/create" element={<Create />} />
+
+            <PrivateRoute path="/profile" element={<Profile />} />
+            <PrivateRoute path="/update-password" element={<UpdateProfile />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgor-password" element={<ForgotPassword />} />
           </Route>
         </Routes>
       </AuthProvider>

@@ -1,8 +1,8 @@
 import BlogList from "./BlogList";
-import useFetch from "../useFetch";
-import familjBild from "../kent-familj.jpeg";
+import useFetch from "./useFetch";
+//import familjeBild from "../"
 import React from "react";
-import Signup from "../components/Signup";
+import Signup from "./components/Signup";
 import { Container } from "react-bootstrap";
 
 function Home() {
@@ -55,7 +55,7 @@ function Home() {
         laboriosam tempora repellendus?
       </p>
 
-      <img style={img} src={familjBild} alt="kent och familj" />
+      {/*  <img style={img} src={familjeBild} alt="kent och familj" /> */}
 
       {/* {error && <div>{error}</div>} */}
       {isPending && <div>Loading...</div>}
@@ -64,8 +64,8 @@ function Home() {
   );
 }
 
-const img = {
-  width: "400px",
-  height: "300px",
-};
+// const img = {
+//   width: "400px",
+//   height: "300px",
+// };
 export default Home;

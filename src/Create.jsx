@@ -6,13 +6,14 @@ const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState("");
-  const [isPending, setIsPending] = useState(false);
+  //const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate("");
-  const [isAdded, setIsAdded] = useState(false);
+  //const [isAdded, setIsAdded] = useState(false);
+  // eslint-disable-next-line
   const [postStatus, setPostStatus] = useState("");
 
   const handleSubmit = async (e) => {
-    setIsPending(true);
+    //setIsPending(true);
     e.preventDefault();
     let blog = {
       title: title,
@@ -23,9 +24,9 @@ const Create = () => {
     let status = await makeRequest("/api/blogs", "POST", blog);
     setPostStatus(status);
     setTimeout(() => {
-      setIsAdded(false);
+      //setIsAdded(false);
       setPostStatus("");
-      setIsPending(false);
+      //setIsPending(false);
       navigate("/");
     }, 2000);
   };
