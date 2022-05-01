@@ -2,26 +2,24 @@ import BlogList from "./BlogList";
 import useFetch from "./useFetch";
 //import familjeBild from "../"
 import React from "react";
-import Signup from "./components/Signup";
-import { Container } from "react-bootstrap";
+//import Signup from "./components/Signup";
+//import { Container } from "react-bootstrap";
 
 function Home() {
-  const {
-    data: blogs,
-    isPending,
-    //error,
-  } = useFetch("http://localhost:3000/blogs");
+  const { data: blogs, isPending, error } = useFetch(
+    "http://localhost:3000/blogs"
+  );
 
   return (
     <div className="home">
-      <Container
+      {/* <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: "100vh" }}
       >
         <div className="w-100" style={{ maxWidth: "400px" }}>
           <Signup />
         </div>
-      </Container>
+      </Container> */}
 
       <h1>Senaste</h1>
       <p>
@@ -57,7 +55,7 @@ function Home() {
 
       {/*  <img style={img} src={familjeBild} alt="kent och familj" /> */}
 
-      {/* {error && <div>{error}</div>} */}
+      {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
       <BlogList blogs={blogs} title="Läs mer..." />
     </div>
