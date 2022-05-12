@@ -60,13 +60,9 @@ function PrivateOutlet() {
   return auth ? <Outlet /> : <Navigate to="/login" />;
 }
 
-function PrivateRoute({ children }) {
+export function PrivateRoute({ children }) {
   const { currentUser } = useAuth();
-  return currentUser ? <Outlet /> : <Navigate to="/login" />;
+  return currentUser ? children : <Navigate to="/login" />;
 }
-
-// function useAuth() {
-//   return true;
-// }
 
 export default App;

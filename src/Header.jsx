@@ -4,15 +4,28 @@ import logo from "./logo.png";
 import { Link } from "react-router-dom";
 //import { Container } from "react-bootstrap";
 //import Signup from "./components/Signup";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/");
+  };
   return (
     <div className="header">
       <img className="logo" src={logo} alt="Logo" />
-      <p>
-        Madde & Kenta <br />
-        på vift
-      </p>
+      <button
+        style={{
+          border: "none",
+          backgroundColor: "transparent",
+          fontFamily: "Bangers",
+          fontSize: "3rem",
+        }}
+        onClick={handleNavigate}
+      >
+        Madde & Kenta på vift
+      </button>
       {/*  <BurgerMenu /> */}
       {/* <Link to="/">Hem</Link>
       <Link to="/blogs/:id">Tidigare bloggar</Link> */}
