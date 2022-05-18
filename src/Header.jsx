@@ -15,16 +15,8 @@ const Header = () => {
   return (
     <div className="header">
       <img className="logo" src={logo} alt="Logo" />
-      <button
-        style={{
-          border: "none",
-          backgroundColor: "transparent",
-          fontFamily: "Bangers",
-          fontSize: "3rem",
-        }}
-        onClick={handleNavigate}
-      >
-        Madde & Kenta på vift
+      <button onClick={handleNavigate}>
+        <wbr /> Madde & Kenta <br /> på vift
       </button>
       {/*  <BurgerMenu /> */}
       {/* <Link to="/">Hem</Link>
