@@ -7,9 +7,10 @@ export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const { signup } = useAuth();
+  const { signup, setRegisterEmail, setRegisterPassword } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
@@ -22,7 +23,7 @@ export default function Signup() {
     try {
       setError("");
       setLoading(true);
-      navigate.push("/");
+      navigate("/");
       await signup(emailRef.current.value, passwordRef.current.value);
     } catch (error) {
       setError("Failed to create an account");
@@ -38,17 +39,43 @@ export default function Signup() {
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" ref={emailRef} required />
+              <Form.Control
+                type="email"
+                ref={emailRef}
+                required
+                onChange={(e) => {
+                  setRegisterEmail(e.target.value);
+                }}
+              />
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} required />
+              <Form.Control
+                type="password"
+                ref={passwordRef}
+                required
+                onChange={(e) => {
+                  setRegisterPassword(e.target.value);
+                }}
+              />
             </Form.Group>
             <Form.Group id="password-confirm">
               <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control type="password" ref={passwordConfirmRef} required />
+              <Form.Control
+                type="password"
+                ref={passwordConfirmRef}
+                required
+                onChange={(e) => {
+                  setRegisterPassword(e.target.value);
+                }}
+              />
             </Form.Group>
-            <Button disabled={loading} className="w-40 mt-4" type="submit">
+            <Button
+              disabled={loading}
+              className="w-40 mt-4"
+              type="submit"
+              onClick={signup}
+            >
               Sign Up
             </Button>
           </Form>
