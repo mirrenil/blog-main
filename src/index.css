@@ -19,17 +19,14 @@
 /*  header styles */
 .header {
   background: linear-gradient(90deg, #b1c7c8, #ebe375);
-  padding: 20px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto;
-  overflow-x: hidden;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  display: flex;
+  justify-content: center;
+  height: 4rem;
+  padding: 3rem;
 }
 
-.header button {
+.header-text {
   color: #333;
   font-family: 'Bangers',
     cursive;
@@ -37,7 +34,6 @@
   text-shadow: #999 2px 2px;
   border: none;
   background-color: transparent;
-
 }
 
 
@@ -46,7 +42,6 @@
   text-decoration-line: underline;
   padding: 6px;
 }
-
 
 .logo {
   height: 10rem;
@@ -61,10 +56,27 @@
 }
 
 .home {
-  margin: 4rem;
-  padding: 3rem;
+  margin: 3rem;
+  padding: 2rem;
   background-color: #f2f2f2;
   border-radius: 25px;
+}
+
+.link-create {
+  text-decoration: none;
+  color: black;
+}
+
+.new-blog {
+  font-size: 1.6rem;
+}
+
+.signout-btn {
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  margin-left: 4rem;
+  font-size: 1.6rem;
 }
 
 /* blog previews / list */
@@ -154,8 +166,7 @@
 /* footer style */
 .footer {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-evenly;
   margin-top: 2rem;
   padding: 1rem;
   position: relative;
@@ -164,6 +175,12 @@
   width: 100%;
   height: 4rem;
 }
+
+.profile {
+  font-size: 1.6rem;
+  margin-right: 4rem;
+}
+
 
 @media (max-width: 756px) {
   .logo {
@@ -182,22 +199,51 @@
     margin: 0;
   }
 
-  .header button {
-    font-size: 2rem;
+  .header-text {
+    color: #333;
+    font-size: 1.8rem;
+    position: absolute;
+    left: 15%
   }
 
-  .header a {
-    visibility: hidden;
+  .header-text-container {
+    display: flex;
+    justify-content: center;
   }
 
   .create {
     margin: 2rem;
   }
 
-  .footer {
-    height: 2rem;
+
+  .footer-links {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .profile {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .signout-btn {
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin-left: 1rem;
+  }
+
+  .new-blog {
+    font-size: 1.2rem;
+  }
+
+  .home {
+    margin: 1rem;
+    padding: 2rem;
   }
 }
+
+
+
 
 
 .profile-div {
@@ -220,9 +266,4 @@
   cursor: pointer;
   width: 80px;
   margin-top: 2rem;
-}
-
-.home {
-  margin: 1.5rem;
-  padding: 2rem;
 }

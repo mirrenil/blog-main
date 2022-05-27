@@ -1,26 +1,12 @@
 import BlogList from "./BlogList";
 import useFetch from "./useFetch";
-//import familjeBild from "../"
 import React from "react";
-//import Signup from "./components/Signup";
-//import { Container } from "react-bootstrap";
 
 function Home() {
-  const { data: blogs, isPending, error } = useFetch(
-    "http://localhost:3000/blogs"
-  );
+  const { data: blogs, isPending } = useFetch("http://localhost:3000/blogs");
 
   return (
     <div className="home">
-      {/* <Container
-        className="d-flex align-items-center justify-content-center"
-        style={{ minHeight: "100vh" }}
-      >
-        <div className="w-100" style={{ maxWidth: "400px" }}>
-          <Signup />
-        </div>
-      </Container> */}
-
       <h1>Senaste</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
@@ -53,17 +39,10 @@ function Home() {
         laboriosam tempora repellendus?
       </p>
 
-      {/*  <img style={img} src={familjeBild} alt="kent och familj" /> */}
-
-      {error && <div>{error}</div>}
       {isPending && <div>Loading...</div>}
       <BlogList blogs={blogs} title="Läs mer..." />
     </div>
   );
 }
 
-// const img = {
-//   width: "400px",
-//   height: "300px",
-// };
 export default Home;

@@ -1,27 +1,30 @@
 import React from "react";
-import logo from "./logo.png";
+//import logo from "./logo.png";
 //import BurgerMenu from "./BurgerMenu";
 import { Link } from "react-router-dom";
-//import { Container } from "react-bootstrap";
-//import Signup from "./components/Signup";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./contexts/AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   const handleNavigate = () => {
     navigate("/");
   };
   return (
     <div className="header">
-      <img className="logo" src={logo} alt="Logo" />
-      <button onClick={handleNavigate}>
-        <wbr /> Madde & Kenta <br /> på vift
-      </button>
+      {/* <img className="logo" src={logo} alt="Logo" /> */}
+      <div className="header-text-container">
+        <button className="header-text" onClick={handleNavigate}>
+          Madde & Kenta på vift
+        </button>
+      </div>
+
       {/*  <BurgerMenu /> */}
       {/* <Link to="/">Hem</Link>
       <Link to="/blogs/:id">Tidigare bloggar</Link> */}
-      <Link to="/login">Logga in</Link>
+
       {/* <Container
         className="d-flex align-items-center justify-content-center"
         style={{ minHeight: "100vh" }}

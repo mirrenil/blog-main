@@ -23,12 +23,7 @@ const Create = () => {
 
     let status = await makeRequest("/api/blogs", "POST", blog);
     setPostStatus(status);
-    setTimeout(() => {
-      //setIsAdded(false);
-      setPostStatus("");
-      //setIsPending(false);
-      navigate("/");
-    }, 2000);
+    console.log(status);
   };
 
   return (

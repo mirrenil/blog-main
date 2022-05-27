@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 const AuthContext = React.createContext();
@@ -52,20 +53,42 @@ export function AuthProvider({ children }) {
   };
 
   const logout = async () => {
-    return signOut(auth);
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
-  function resetPassword(email) {
-    return auth.sendPasswordResetEmail(email);
-  }
+  const resetPassword = async () => {
+    try {
+      const reset = await sendPasswordResetEmail(auth, loginEmail);
+      console.log(reset);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-  function updateEmail(email) {
-    return currentUser.updateEmail(email);
-  }
+  const updateEmail = async () => {
+    try {
+      const updatedEmail = await currentUser.updateEmail(auth, loginEmail);
+      console.log(updatedEmail);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-  function updatePassword(password) {
-    return currentUser.updatePassword(password);
-  }
+  const updatePassword = async () => {
+    try {
+      const updatePassword = await currentUser.updatePassword(
+        auth,
+        loginPassword
+      );
+      console.log(updatePassword);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
