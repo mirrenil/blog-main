@@ -1,43 +1,50 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { makeRequest } from "./utils";
-const Create = () => {
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "./firebase";
+
+const Create = ({ isAuth }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [image, setImage] = useState("");
-  //const [isPending, setIsPending] = useState(false);
+  //const [image, setImage] = useState("");
   const navigate = useNavigate("");
-  //const [isAdded, setIsAdded] = useState(false);
-  // eslint-disable-next-line
-  const [postStatus, setPostStatus] = useState("");
+  const postCollectionRef = collection(db, "blogginlägg");
 
-  const handleSubmit = async (e) => {
-    //setIsPending(true);
-    e.preventDefault();
-    let blog = {
-      title: title,
-      body: body,
-      image: image,
-    };
-
-    let status = await makeRequest("/api/blogs", "POST", blog);
-    setPostStatus(status);
-    console.log(status);
+  const createPost = async () => {
+    await addDoc(postCollectionRef, {
+      title,
+      body,
+      /* author: { name: auth.currentUser.displayName, id: auth.currentUser.uid } */
+    });
+    navigate("/");
   };
+
+  // useEffect(() => {
+  //   if (!isAuth) {
+  //     navigate("/login");
+  //   }
+  // }, []);
 
   return (
     <div className="create">
       <h2>Skriv ett nytt blogginlägg</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Titel</label>
-        <input
-          type="text"
-          required
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label>Lägg till en bild</label>
+      <label>Titel</label>
+      <input
+        type="text"
+        required
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <label>Inlägg</label>
+      <input
+        style={{ width: "400px", height: "200px" }}
+        type="text"
+        required
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+      />
+      {/* <label>Lägg till en bild</label>
         <input
           type="url"
           value={image}
@@ -45,18 +52,9 @@ const Create = () => {
           name="image"
           id="image"
           placeholder="url här"
-        />
+        /> */}
 
-        <label>Inlägg</label>
-        <input
-          style={{ width: "400px", height: "200px" }}
-          type="text"
-          required
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-        />
-        <button type="submit">Publicera</button>
-      </form>
+      <button onClick={createPost}>Publicera</button>
     </div>
   );
 };
