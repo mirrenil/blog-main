@@ -55,12 +55,37 @@
   padding: 20px;
 }
 
-.home {
-  margin: 3rem;
+.homePage {
   padding: 2rem;
-  background-color: #f2f2f2;
   border-radius: 25px;
+  width: 80%;
+  min-height: calc(100vh - 80px);
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.homePage .post {
+  width: auto;
+  height: auto;
+  background-color: rgb(250, 250, 250);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.postHeader {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.title {
+  flex: 50%;
+}
+
 
 .link-create {
   text-decoration: none;
@@ -79,46 +104,7 @@
   font-size: 1.6rem;
 }
 
-/* blog previews / list */
-.blog-preview {
-  padding: 10px 16px;
-  margin: 20px 0;
-  border-bottom: 1px solid #fafafa;
-}
-
-.blog-preview:hover {
-  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.1);
-}
-
-.blog-preview h2 {
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.blog-preview a {
-  text-decoration: none;
-}
-
-/* blog details page */
-.blog-details h2 {
-  font-size: 20px;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.blog-details div {
-  margin: 20px 0;
-}
-
-.blog-details button {
-  background: #ddd;
-  color: #333;
-  border: 0;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-}
+.post
 
 /* create new blog form */
 .create {
@@ -151,15 +137,7 @@
   border: 1px solid #ddd;
   box-sizing: border-box;
   display: block;
-}
-
-.create button {
-  background: #ddd;
-  color: #333;
-  border: 0;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 15px;
 }
 
 
@@ -203,7 +181,7 @@
     color: #333;
     font-size: 1.8rem;
     position: absolute;
-    left: 15%
+    left: 20%
   }
 
   .header-text-container {
@@ -240,30 +218,4 @@
     margin: 1rem;
     padding: 2rem;
   }
-}
-
-
-
-
-
-.profile-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 4rem;
-}
-
-.hello {
-  margin-bottom: 2rem;
-}
-
-.auth-btn {
-  background: #ddd;
-  color: #333;
-  border: 0;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  width: 80px;
-  margin-top: 2rem;
 }
