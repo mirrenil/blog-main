@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
 
 const Footer = () => {
-  const { currentUser, signout } = useAuth();
+  const { currentUser } = useAuth();
+
   return (
     <div className="footer">
       {currentUser ? (
@@ -11,11 +12,11 @@ const Footer = () => {
           <Link
             className="profile"
             style={{ textDecoration: "none", color: "black" }}
-            to="/"
+            to="/profile"
           >
-            Profil
+            Min Profil
           </Link>
-          <Link
+          {/* <Link
             className="new-blog"
             style={{
               textDecoration: "none",
@@ -25,12 +26,20 @@ const Footer = () => {
           >
             Nytt blogginlägg
           </Link>
-          <button className="signout-btn" onClick={signout}>
+          <button className="signout-btn" onClick={signUserOut}>
             Logga ut
-          </button>
+          </button> */}
         </div>
       ) : (
-        <Link to="/login">Logga in</Link>
+        <Link
+          style={{
+            textDecoration: "none",
+            color: "black",
+          }}
+          to="/login"
+        >
+          Logga in
+        </Link>
       )}
     </div>
   );
