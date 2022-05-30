@@ -31,8 +31,25 @@ export default function Signup() {
     setLoading(false);
   }
   return (
-    <>
-      <Card>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignContent: "center",
+        alignItems: "center",
+        marginTop: "5rem",
+        marginBottom: "5rem",
+      }}
+    >
+      <Card
+        className="text-center"
+        style={{
+          width: "22rem",
+          backgroundColor: "transparent",
+          borderRadius: "10%",
+        }}
+      >
         <Card.Body>
           <h2 className="text-center mb-4">Sign Up</h2>
           {error && <Alert variant="danger">{error}</Alert>}
@@ -40,6 +57,7 @@ export default function Signup() {
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
+                className="text-center"
                 type="email"
                 ref={emailRef}
                 required
@@ -51,6 +69,7 @@ export default function Signup() {
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
               <Form.Control
+                className="text-center"
                 type="password"
                 ref={passwordRef}
                 required
@@ -62,6 +81,7 @@ export default function Signup() {
             <Form.Group id="password-confirm">
               <Form.Label>Password Confirmation</Form.Label>
               <Form.Control
+                className="text-center"
                 type="password"
                 ref={passwordConfirmRef}
                 required
@@ -81,9 +101,9 @@ export default function Signup() {
           </Form>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
+      <div className="w-100 text-center mt-4">
         Already have an account? <Link to="/login">Log In</Link>
       </div>
-    </>
+    </div>
   );
 }
