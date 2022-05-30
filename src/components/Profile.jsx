@@ -1,53 +1,72 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { Card, Button, Alert } from "react-bootstrap";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 export const Profile = () => {
   const [error, setError] = useState("");
-  const { currentUser, logout } = useAuth();
-  const navigate = useNavigate();
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
+  const { currentUser } = useAuth();
 
-  async function handleLogout() {
-    setError("");
-
-    try {
-      await logout();
-      navigate.push("/login");
-    } catch {
-      setError("Failed to log out");
-    }
-  }
+  const signUserOut = () => {
+    signOut(auth).then(() => {
+      localStorage.clear();
+      setIsAuth(false);
+      window.location.pathname = "/";
+    });
+  };
 
   return (
-    <>
-      <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Profile</h2>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignContent: "center",
+        alignItems: "center",
+        marginTop: "5rem",
+        marginBottom: "5rem",
+      }}
+    >
+      <Card
+        className="text-center"
+        style={{
+          width: "22rem",
+          backgroundColor: "transparent",
+          border: "none",
+        }}
+      >
+        <Card.Body
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <h2 className="text-center mb-4">Profil</h2>
           {error && <Alert variant="danger">{error}</Alert>}
-          <strong>Email:</strong> {currentUser.email}
-          <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
-            Update Profile
+          {/* <strong>Inloggad som:</strong> {currentUser.email} */}
+          <Link to="/update-profile" className="btn btn-primary w-50 mt-3">
+            Uppdatera profil
           </Link>
-          <Link to="/create" className="btn btn-primary w-100 mt-3">
-            Create new blog
+          <Link to="/create" className="btn btn-primary w-50 mt-3">
+            Nytt blogginlägg
           </Link>
+          <Button
+            variant="link"
+            onClick={signUserOut}
+            className="btn btn-primary w-50 mt-3"
+            style={{ color: "white" }}
+          >
+            Logga ut
+          </Button>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
-        <Button variant="link" onClick={handleLogout}>
-          Log Out
-        </Button>
-      </div>
-    </>
+      <div className="w-100 text-center mt-2"></div>
+    </div>
   );
 };
-// <div className="profile-div">
-//   <h1 className="hello">Hej Kent!</h1>
-//   <Link to="/create">Skriv nytt blogginlägg</Link>
-//   <Button variant="link" onClick={handleLogout}>
-//     Logga ut
-//   </Button>
-// </div>
 
 export default Profile;
