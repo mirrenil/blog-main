@@ -18,10 +18,11 @@ export default function Login() {
     try {
       setError("");
       setLoading(true);
-      navigate("/");
       await login(emailRef.current.value, passwordRef.current.value);
+      navigate("/");
     } catch (error) {
       setError("Failed to sign in");
+      navigate("/login");
     }
     setLoading(false);
   }
@@ -41,7 +42,7 @@ export default function Login() {
         className="text-center"
         style={{
           width: "22rem",
-          backgroundColor: "transparent",
+          backgroundColor: "white",
           borderRadius: "10%",
         }}
       >

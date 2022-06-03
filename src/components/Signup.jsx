@@ -46,7 +46,7 @@ export default function Signup() {
         className="text-center"
         style={{
           width: "22rem",
-          backgroundColor: "transparent",
+          backgroundColor: "white",
           borderRadius: "10%",
         }}
       >
