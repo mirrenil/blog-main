@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import Create from "./Create";
 import BlogList from "./BlogList";
@@ -14,19 +14,6 @@ import UpdateProfile from "./components/UpdateProfile";
 function App() {
   return (
     <Router>
-      <aside>
-        <nav
-          style={{
-            position: "absolute",
-            top: "12%",
-            left: "40%",
-          }}
-        >
-          <Link style={{ color: "#333" }} to="/bloglist">
-            Läs tidigare blogginlägg
-          </Link>
-        </nav>
-      </aside>
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
