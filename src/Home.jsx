@@ -20,7 +20,7 @@ function Home(/* { isAuth } */) {
   //   console.log(postDoc);
   // };
   return (
-    <div className="homePage">
+    <div>
       <BlogList />
     </div>
   );
