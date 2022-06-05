@@ -42,10 +42,11 @@
   padding: 6px;
 }
 
-.logo {
-  height: 10rem;
-  width: 10rem;
-  position: relative;
+.header nav {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-bottom: 2rem;
 }
 
 .content {
@@ -64,10 +65,11 @@
   align-items: center;
   justify-content: center;
   align-content: center;
+  margin-top: 2.4rem;
 }
 
 .homePage .post {
-  width: 100%;
+  width: 800px;
   height: auto;
   background-color: rgb(250, 250, 250);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -102,8 +104,6 @@
   margin-left: 4rem;
   font-size: 1.6rem;
 }
-
-.post
 
 /* create new blog form */
 .create {
@@ -162,12 +162,6 @@
 
 
 @media (max-width: 756px) {
-  .logo {
-    height: 3rem;
-    width: 3rem;
-    padding-right: .5rem;
-    visibility: hidden;
-  }
 
   .header {
     max-width: 100%;
@@ -181,9 +175,8 @@
 
   .header-text {
     color: #333;
-    font-size: 1.8rem;
+    font-size: 2rem;
     position: absolute;
-    left: 20%
   }
 
   .header-text-container {
@@ -194,7 +187,6 @@
   .create {
     margin: 2rem;
   }
-
 
   .footer-links {
     display: flex;
@@ -219,5 +211,19 @@
   .home {
     margin: 1rem;
     padding: 2rem;
+  }
+
+  .navbar {
+    position: absolute;
+    top: 12%;
+    left: 40%;
+  }
+
+  .homePage .post {
+    width: 300px;
+    height: auto;
+    margin: 20px;
+    padding: 20px;
+    margin-top: 2.4rem;
   }
 }
