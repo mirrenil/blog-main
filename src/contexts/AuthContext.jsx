@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
@@ -16,7 +16,6 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState(true);
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
@@ -46,15 +45,18 @@ export function AuthProvider({ children }) {
         loginEmail,
         loginPassword
       );
+      setCurrentUser(currentUser);
       console.log(user);
     } catch (error) {
       console.log(error.message);
+      alert(error.message + " Wrong password or email, please try again");
     }
   };
 
   const logout = async () => {
     try {
       await signOut(auth);
+      setCurrentUser(undefined);
     } catch (error) {
       console.log(error.message);
     }
@@ -90,15 +92,6 @@ export function AuthProvider({ children }) {
     }
   };
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-      setLoading(false);
-    });
-
-    return unsubscribe;
-  }, []);
-
   const value = {
     currentUser,
     login,
@@ -113,10 +106,6 @@ export function AuthProvider({ children }) {
     setRegisterPassword,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 export default AuthProvider;

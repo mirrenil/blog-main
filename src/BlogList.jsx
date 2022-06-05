@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
+import { imageUrls } from "./Create";
 
-const BlogList = ({ blogs, title }) => {
+const BlogList = () => {
   const [postList, setPostList] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);
   const postCollectionRef = collection(db, "blogginlägg");
 
   useEffect(() => {
@@ -41,12 +43,10 @@ const BlogList = ({ blogs, title }) => {
               </div>
             </div>
             <div className="post-tex-container">{post.body}</div>
-            {/* <div className="post-image-container">
-              {ImageList.map((url) => {
-                return <img src={url} />;
-              })}
-            </div> */}
-            <div>{post.image}</div>
+
+            {imageUrls.map((url, index) => {
+              return <img src={url} key={index} alt="image" />;
+            })}
           </div>
         );
       })}
