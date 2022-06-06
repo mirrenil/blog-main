@@ -29,7 +29,7 @@ const Create = ({ isAuth }) => {
 
   const uploadImage = () => {
     if (image == null) return;
-    const imageRef = ref(storage, `images/${image.name + Date.now()}`);
+    const imageRef = ref(storage, `images/${image.name}`).put(image);
     uploadBytes(imageRef, image).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setImageUrls((prev) => [...prev, url]);

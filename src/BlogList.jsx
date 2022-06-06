@@ -42,11 +42,12 @@ const BlogList = () => {
                 </button> */}
               </div>
             </div>
+
             <div className="post-tex-container">{post.body}</div>
 
-            {imageUrls.map((url, index) => {
+            {/* {imageUrls.map((url, index) => {
               return <img src={url} key={index} alt="image" />;
-            })}
+            })} */}
           </div>
         );
       })}
