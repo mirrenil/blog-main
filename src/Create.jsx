@@ -10,6 +10,7 @@ import { useAuth } from "./contexts/AuthContext";
 
 const Create = ({ isAuth }) => {
   const { currentUser } = useAuth();
+  const [category, setCategory] = useState([]);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState(null);
@@ -22,6 +23,7 @@ const Create = ({ isAuth }) => {
     await addDoc(postCollectionRef, {
       title,
       body,
+      category,
     });
     uploadImage();
     navigate("/");
@@ -29,7 +31,7 @@ const Create = ({ isAuth }) => {
 
   const uploadImage = () => {
     if (image == null) return;
-    const imageRef = ref(storage, `images/${image.name}`).put(image);
+    const imageRef = ref(storage, `images/${image.name}`);
     uploadBytes(imageRef, image).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setImageUrls((prev) => [...prev, url]);
@@ -73,6 +75,15 @@ const Create = ({ isAuth }) => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
+          <input
+            style={{ maxWidth: "300px", marginTop: "1rem" }}
+            type="text"
+            required
+            placeholder="Kategori"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          />
+
           <input
             style={{ maWidth: "200px", border: "none" }}
             type="file"
