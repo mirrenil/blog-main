@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
-import { imageUrls } from "./Create";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { useAuth } from "./contexts/AuthContext";
 
 const BlogList = () => {
+  const { currentUser } = useAuth();
   const [postList, setPostList] = useState([]);
-  const [imageUrls, setImageUrls] = useState([]);
   const postCollectionRef = collection(db, "blogginlägg");
+  const [url, setUrl] = useState();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const storage = getStorage();
+      const referance = ref(storage, "images/kent-familj.jpeg");
+      await getDownloadURL(referance).then((x) => {
+        setUrl(x);
+      });
+    };
+    if (url === undefined) {
+      fetch();
+    }
+  }, []);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -32,22 +47,28 @@ const BlogList = () => {
               <div className="title">
                 <h3>{post.title}</h3>
               </div>
-              <div className="delete-post">
-                {/* <button
-                  onClick={() => {
-                    deletePost(post.id);
-                  }}
-                >
-                  Ta bort
-                </button> */}
-              </div>
+              {currentUser ? (
+                <div className="delete-post">
+                  <button
+                    style={{ border: "none", background: "transparent" }}
+                    onClick={() => {
+                      deletePost(post.id);
+                    }}
+                  >
+                    🗑
+                  </button>
+                </div>
+              ) : null}
             </div>
 
             <div className="post-tex-container">{post.body}</div>
-
-            {/* {imageUrls.map((url, index) => {
-              return <img src={url} key={index} alt="image" />;
-            })} */}
+            <div className="post-image-container">
+              <img
+                style={{ width: "70%", height: "70%" }}
+                src={url}
+                alt="bild på kent's familj"
+              />
+            </div>
           </div>
         );
       })}
