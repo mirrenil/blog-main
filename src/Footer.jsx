@@ -14,7 +14,7 @@ const Footer = () => {
             style={{ textDecoration: "none", color: "black" }}
             to="/profile"
           >
-            Min Profil
+            👤
           </Link>
           {/* <Link
             className="new-blog"

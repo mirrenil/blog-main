@@ -8,7 +8,7 @@
 }
 
 #root {
-  background: linear-gradient(90deg, #b1c7c8, #ebe375);
+  background: linear-gradient(90deg, #D48166, #ebe375);
 }
 
 .body {
@@ -17,8 +17,6 @@
 
 /*  header styles */
 .header {
-  background: linear-gradient(90deg, #b1c7c8, #ebe375);
-  display: flex;
   display: flex;
   justify-content: center;
   height: 4rem;
