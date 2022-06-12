@@ -14,7 +14,9 @@ const Footer = () => {
             style={{ textDecoration: "none", color: "black" }}
             to="/profile"
           >
-            👤
+            <span role="img" aria-label="icon-profile">
+              👤
+            </span>
           </Link>
           {/* <Link
             className="new-blog"
