@@ -13,8 +13,8 @@ const BlogList = () => {
   useEffect(() => {
     const fetch = async () => {
       const storage = getStorage();
-      const referance = ref(storage, "images/kent-familj.jpeg");
-      await getDownloadURL(referance).then((x) => {
+      const img = ref(storage, "images/kent-familj.jpeg");
+      await getDownloadURL(img).then((x) => {
         setUrl(x);
       });
     };
@@ -42,33 +42,33 @@ const BlogList = () => {
     <div className="homePage">
       {postList.map((post) => {
         return (
-          <div className="post">
+          <div className="post" key={post.id}>
             <div className="postHeader">
               <div className="title">
                 <h3>{post.title}</h3>
               </div>
-              {currentUser ? (
-                <div className="delete-post">
-                  <button
-                    style={{ border: "none", background: "transparent" }}
-                    onClick={() => {
-                      deletePost(post.id);
-                    }}
-                  >
-                    🗑
-                  </button>
-                </div>
-              ) : null}
             </div>
 
             <div className="post-tex-container">{post.body}</div>
             <div className="post-image-container">
               <img
-                style={{ width: "70%", height: "70%" }}
+                style={{ width: "100%", height: "100%" }}
                 src={url}
-                alt="bild på kent's familj"
+                alt="..."
               />
             </div>
+            {currentUser ? (
+              <div className="delete-post">
+                <button
+                  style={{ border: "none", background: "transparent" }}
+                  onClick={() => {
+                    deletePost(post.id);
+                  }}
+                >
+                  🗑
+                </button>
+              </div>
+            ) : null}
           </div>
         );
       })}
