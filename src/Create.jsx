@@ -25,7 +25,6 @@ const Create = ({ isAuth }) => {
       body,
       category,
     });
-    uploadImage();
     navigate("/");
   };
 
@@ -39,15 +38,15 @@ const Create = ({ isAuth }) => {
     });
   };
 
-  useEffect(() => {
-    listAll(imageListRef).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [...prev, url]);
-        });
-      });
-    });
-  }, []);
+  // useEffect(() => {
+  //   listAll(imageListRef).then((response) => {
+  //     response.items.forEach((item) => {
+  //       getDownloadURL(item).then((url) => {
+  //         setImageUrls((prev) => [...prev, url]);
+  //       });
+  //     });
+  //   });
+  // }, []);
 
   // useEffect(() => {
   //   if (!isAuth) {
@@ -92,7 +91,14 @@ const Create = ({ isAuth }) => {
             name="image"
             id="image"
           />
-
+          <Button onClick={uploadImage}>Ladda upp bild</Button>
+          <>
+            {imageUrls
+              .filter((url) => url.id === postCollectionRef.id)
+              .map((url) => {
+                return <img src={url} alt="bild på kent's familj" />;
+              })}
+          </>
           <Button
             onClick={createPost}
             className="btn btn-primary w-50 mt-3"
