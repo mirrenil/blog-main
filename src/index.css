@@ -67,12 +67,15 @@
 }
 
 .homePage .post {
-  width: 800px;
+  width: 756px;
   height: auto;
   background-color: rgb(250, 250, 250);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   margin: 20px;
   padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .postHeader {
@@ -81,10 +84,15 @@
   width: 100%;
 }
 
-.title {
-  flex: 50%;
+.delete-post {
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 1rem;
 }
 
+.post-image-container {
+  margin-top: 1rem;
+}
 
 .link-create {
   text-decoration: none;
@@ -211,10 +219,8 @@
     padding: 2rem;
   }
 
-  .navbar {
-    position: absolute;
-    top: 12%;
-    left: 40%;
+  .category {
+    margin-bottom: 1rem;
   }
 
   .homePage .post {
@@ -222,6 +228,6 @@
     height: auto;
     margin: 20px;
     padding: 20px;
-    margin-top: 2.4rem;
+    margin-top: 2rem;
   }
 }
