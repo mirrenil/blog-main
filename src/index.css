@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&family=Quicksand:wght@300&display=swap');
 
 /* base styles */
 * {
@@ -25,9 +25,9 @@
 
 .header-text {
   color: #333;
-  font-family: 'Abril Fatface',
+  font-family: 'Amatic SC',
     cursive;
-  font-size: 3rem;
+  font-size: 5rem;
   text-shadow: #999 2px 2px;
   border: none;
   background-color: transparent;
@@ -67,6 +67,8 @@
 }
 
 .homePage .post {
+  font-family: 'Quicksand',
+    sans-serif;
   width: 756px;
   height: auto;
   background-color: rgb(250, 250, 250);
@@ -181,7 +183,7 @@
 
   .header-text {
     color: #333;
-    font-size: 2rem;
+    font-size: 3.3rem;
     position: absolute;
   }
 
