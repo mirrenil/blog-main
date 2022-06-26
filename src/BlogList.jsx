@@ -13,8 +13,8 @@ const BlogList = () => {
   useEffect(() => {
     const fetch = async () => {
       const storage = getStorage();
-      const img = ref(storage, "images/kent-familj.jpeg");
-      await getDownloadURL(img).then((x) => {
+      const imageRef = ref(storage, "images/aluminium-cans-1.webp"); // not working
+      await getDownloadURL(imageRef).then((x) => {
         setUrl(x);
       });
     };
