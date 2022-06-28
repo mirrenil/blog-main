@@ -13,7 +13,7 @@ const BlogList = () => {
   useEffect(() => {
     const fetch = async () => {
       const storage = getStorage();
-      const imageRef = ref(storage, "images/aluminium-cans-1.webp"); // not working
+      const imageRef = ref(storage, "images_v2/lama.jpeg"); // only displaying an image provided by;
       await getDownloadURL(imageRef).then((x) => {
         setUrl(x);
       });

@@ -26,13 +26,15 @@ const Create = ({ isAuth }) => {
     });
     navigate("/");
   };
+
   function handleImage(imageEvent) {
     setImage(imageEvent.target.files[0]);
   }
 
   const uploadImage = () => {
     const imageRef = ref(storage, `images_v2/${image.name}`);
-
+    let x = imageRef.fullPath;
+    console.log(x);
     uploadBytes(imageRef, image).then((snapshot) => {});
   };
 
@@ -72,22 +74,27 @@ const Create = ({ isAuth }) => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
-          <input
+          {/* <input
             style={{ maxWidth: "300px", marginTop: "1rem" }}
             type="text"
             required
             placeholder="Kategori"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-          />
+          /> */}
 
           <input
-            style={{ maWidth: "200px", border: "none" }}
+            style={{
+              maxWidth: "100px",
+              border: "none",
+              color: "transparent",
+            }}
             type="file"
             value={""}
             onChange={(e) => handleImage(e)}
             name="image"
             id="image"
+            multiple={true}
           />
           <Button onClick={uploadImage}>Ladda upp bild</Button>
           <>
