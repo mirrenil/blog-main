@@ -1,11 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "./firebase";
 import { storage } from "./firebase";
-import { ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
+import { ref, uploadBytes } from "firebase/storage";
 import { useAuth } from "./contexts/AuthContext";
 
 const Create = ({ isAuth }) => {
@@ -17,7 +17,6 @@ const Create = ({ isAuth }) => {
   const [imageUrls, setImageUrls] = useState([]);
   const navigate = useNavigate("");
   const postCollectionRef = collection(db, "blogginlägg");
-  const imageListRef = ref(storage, "images/");
 
   const createPost = async () => {
     await addDoc(postCollectionRef, {
@@ -27,15 +26,14 @@ const Create = ({ isAuth }) => {
     });
     navigate("/");
   };
+  function handleImage(imageEvent) {
+    setImage(imageEvent.target.files[0]);
+  }
 
   const uploadImage = () => {
-    if (image == null) return;
-    const imageRef = ref(storage, `images/${image.name}`);
-    uploadBytes(imageRef, image).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageUrls((prev) => [...prev, url]);
-      });
-    });
+    const imageRef = ref(storage, `images_v2/${image.name}`);
+
+    uploadBytes(imageRef, image).then((snapshot) => {});
   };
 
   // useEffect(() => {
@@ -87,7 +85,7 @@ const Create = ({ isAuth }) => {
             style={{ maWidth: "200px", border: "none" }}
             type="file"
             value={""}
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={(e) => handleImage(e)}
             name="image"
             id="image"
           />
