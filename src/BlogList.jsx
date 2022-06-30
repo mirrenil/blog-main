@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  deleteDoc,
+  doc,
+  orderBy,
+  query,
+  onSnapshot,
+  Timestamp,
+} from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./contexts/AuthContext";
 
@@ -11,7 +20,15 @@ const BlogList = () => {
   useEffect(() => {
     const getPosts = async () => {
       const data = await getDocs(postCollectionRef);
-      setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const q = query(postCollectionRef, orderBy("createdAt", "desc"));
+      onSnapshot(q, (snapshot) => {
+        const posts = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPostList(posts);
+        console.log(posts);
+      });
     };
 
     getPosts();
@@ -31,6 +48,12 @@ const BlogList = () => {
             <div className="postHeader">
               <div className="title">
                 <h3>{post.title}</h3>
+              </div>
+              <div className="post-date">
+                {post.createdAt
+                  .toDate()
+                  .toLocaleString("sv-SE")
+                  .substring(0, 10)}
               </div>
             </div>
 

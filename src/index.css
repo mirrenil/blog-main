@@ -82,8 +82,12 @@
 
 .postHeader {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
+}
+
+.post-date {
+  font-size: 1rem;
 }
 
 .delete-post {
@@ -232,4 +236,9 @@
     padding: 20px;
     margin-top: 2rem;
   }
+
+  .post-date {
+    font-size: .8rem;
+  }
+
 }

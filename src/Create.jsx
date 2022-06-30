@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { db } from "./firebase";
 import { storage } from "./firebase";
 import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -29,6 +29,7 @@ const Create = ({ isAuth }) => {
       body,
       //category,
       imageFilename,
+      createdAt: Timestamp.now().toDate(),
     });
     navigate("/");
   };
@@ -83,7 +84,7 @@ const Create = ({ isAuth }) => {
             name="image"
             id="image"
             accept="image/png, image/jpeg"
-            multiple
+            multiple={true}
           />
           <Button onClick={uploadImage}>Ladda upp bild</Button>
           <>
