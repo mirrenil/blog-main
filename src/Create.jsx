@@ -5,24 +5,30 @@ import { useNavigate } from "react-router";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "./firebase";
 import { storage } from "./firebase";
-import { ref, uploadBytes } from "firebase/storage";
+import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useAuth } from "./contexts/AuthContext";
 
 const Create = ({ isAuth }) => {
   const { currentUser } = useAuth();
-  const [category, setCategory] = useState([]);
+  //const [category, setCategory] = useState([]);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
   const navigate = useNavigate("");
   const postCollectionRef = collection(db, "blogginlägg");
+  const imageListRef = ref(storage, "images_v2/");
 
   const createPost = async () => {
+    const storage = getStorage();
+    const imageRef = ref(storage, `images_v2/${image.name}`);
+    const imageFilename = await getDownloadURL(imageRef);
+
     await addDoc(postCollectionRef, {
       title,
       body,
-      category,
+      //category,
+      imageFilename,
     });
     navigate("/");
   };
@@ -33,26 +39,8 @@ const Create = ({ isAuth }) => {
 
   const uploadImage = () => {
     const imageRef = ref(storage, `images_v2/${image.name}`);
-    let x = imageRef.fullPath;
-    console.log(x);
     uploadBytes(imageRef, image).then((snapshot) => {});
   };
-
-  // useEffect(() => {
-  //   listAll(imageListRef).then((response) => {
-  //     response.items.forEach((item) => {
-  //       getDownloadURL(item).then((url) => {
-  //         setImageUrls((prev) => [...prev, url]);
-  //       });
-  //     });
-  //   });
-  // }, []);
-
-  // useEffect(() => {
-  //   if (!isAuth) {
-  //     navigate("/login");
-  //   }
-  // }, []);
 
   return (
     <div className="create">
@@ -94,14 +82,15 @@ const Create = ({ isAuth }) => {
             onChange={(e) => handleImage(e)}
             name="image"
             id="image"
-            multiple={true}
+            accept="image/png, image/jpeg"
+            multiple
           />
           <Button onClick={uploadImage}>Ladda upp bild</Button>
           <>
             {imageUrls
               .filter((url) => url.id === postCollectionRef.id)
               .map((url) => {
-                return <img src={url} alt="bild på kent's familj" />;
+                return <img src={url} alt="En bild på Kent's blogg..." />;
               })}
           </>
           <Button

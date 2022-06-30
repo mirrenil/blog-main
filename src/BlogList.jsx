@@ -1,27 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
 import { db } from "./firebase";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import { useAuth } from "./contexts/AuthContext";
 
 const BlogList = () => {
   const { currentUser } = useAuth();
   const [postList, setPostList] = useState([]);
   const postCollectionRef = collection(db, "blogginlägg");
-  const [url, setUrl] = useState();
-
-  useEffect(() => {
-    const fetch = async () => {
-      const storage = getStorage();
-      const imageRef = ref(storage, "images_v2/lama.jpeg"); // only displaying an image provided by;
-      await getDownloadURL(imageRef).then((x) => {
-        setUrl(x);
-      });
-    };
-    if (url === undefined) {
-      fetch();
-    }
-  }, []);
 
   useEffect(() => {
     const getPosts = async () => {
@@ -40,7 +25,7 @@ const BlogList = () => {
 
   return (
     <div className="homePage">
-      {postList.map((post) => {
+      {postList.flatMap((post) => {
         return (
           <div className="post" key={post.id}>
             <div className="postHeader">
@@ -53,7 +38,7 @@ const BlogList = () => {
             <div className="post-image-container">
               <img
                 style={{ width: "100%", height: "100%" }}
-                src={url}
+                src={post.imageFilename}
                 alt="..."
               />
             </div>
