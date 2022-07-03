@@ -7,7 +7,6 @@ import {
   orderBy,
   query,
   onSnapshot,
-  Timestamp,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./contexts/AuthContext";
@@ -19,7 +18,7 @@ const BlogList = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const data = await getDocs(postCollectionRef);
+      await getDocs(postCollectionRef);
       const q = query(postCollectionRef, orderBy("createdAt", "desc"));
       onSnapshot(q, (snapshot) => {
         const posts = snapshot.docs.map((doc) => ({
@@ -27,7 +26,6 @@ const BlogList = () => {
           ...doc.data(),
         }));
         setPostList(posts);
-        console.log(posts);
       });
     };
 

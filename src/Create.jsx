@@ -10,7 +10,8 @@ import { useAuth } from "./contexts/AuthContext";
 
 const Create = ({ isAuth }) => {
   const { currentUser } = useAuth();
-  //const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState([]);
+  const categories = [];
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState(null);
@@ -27,7 +28,7 @@ const Create = ({ isAuth }) => {
     await addDoc(postCollectionRef, {
       title,
       body,
-      //category,
+      category,
       imageFilename,
       createdAt: Timestamp.now().toDate(),
     });
@@ -36,6 +37,12 @@ const Create = ({ isAuth }) => {
 
   function handleImage(imageEvent) {
     setImage(imageEvent.target.files[0]);
+  }
+
+  function addCategory(event) {
+    setCategory(event.target.value);
+    categories.push(event.target.value);
+    console.log(categories);
   }
 
   const uploadImage = () => {
@@ -63,14 +70,14 @@ const Create = ({ isAuth }) => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
-          {/* <input
+          <input
             style={{ maxWidth: "300px", marginTop: "1rem" }}
             type="text"
             required
             placeholder="Kategori"
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          /> */}
+            onChange={(e) => addCategory(e)}
+          />
 
           <input
             style={{
