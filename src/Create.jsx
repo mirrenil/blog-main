@@ -7,11 +7,18 @@ import { db } from "./firebase";
 import { storage } from "./firebase";
 import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useAuth } from "./contexts/AuthContext";
+import Creatable from "react-select/creatable";
+
+const categories = [
+  { value: 1, label: "Resor" },
+  { value: 2, label: "Familj" },
+];
 
 const Create = ({ isAuth }) => {
   const { currentUser } = useAuth();
-  const [category, setCategory] = useState([]);
-  const categories = [];
+  const [categoryInputValue, setCategoryInputValue] = useState("");
+  const [categoryValue, setCategoryValue] = useState("");
+  const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState(null);
@@ -28,7 +35,7 @@ const Create = ({ isAuth }) => {
     await addDoc(postCollectionRef, {
       title,
       body,
-      category,
+      categoryValue,
       imageFilename,
       createdAt: Timestamp.now().toDate(),
     });
@@ -39,16 +46,47 @@ const Create = ({ isAuth }) => {
     setImage(imageEvent.target.files[0]);
   }
 
-  function addCategory(event) {
-    setCategory(event.target.value);
-    categories.push(event.target.value);
-    console.log(categories);
-  }
-
   const uploadImage = () => {
     const imageRef = ref(storage, `images_v2/${image.name}`);
     uploadBytes(imageRef, image).then((snapshot) => {});
   };
+
+  const handleChange = (field, value) => {
+    switch (field) {
+      case "categories":
+        setCategory(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleInputChange = (value) => {
+    setCategoryInputValue(value);
+    console.log(value);
+  };
+
+  const handleKeyDown = (e) => {
+    if (!categoryInputValue) return;
+    switch (e.key) {
+      case "Enter":
+      case "Tab":
+        setCategoryValue([
+          ...categoryValue,
+          createCategory(categoryInputValue),
+        ]);
+        setCategoryInputValue("");
+        e.preventDefault();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const createCategory = (label) => ({
+    label,
+    value: label,
+  });
 
   return (
     <div className="create">
@@ -70,14 +108,36 @@ const Create = ({ isAuth }) => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
-          <input
+          <label>Kategori</label>
+          <Creatable
+            isClearable
+            isMulti
+            onChange={(value) => handleChange("categories", value)}
+            //onKeyDown={handleKeyDown}
+            options={categories}
+            value={categoryValue}
+          />
+
+          <Creatable
+            isClearable
+            isMulti
+            inputValue={categoryInputValue}
+            menuIsOpen={false}
+            placeholder="Skriv och klicka på enter för att skapa en kategori"
+            onChange={(value) => handleChange("kategori", value)}
+            onKeyDown={handleKeyDown}
+            onInputChange={handleInputChange}
+            options={categories}
+            value={categoryValue}
+          />
+          {/* <input
             style={{ maxWidth: "300px", marginTop: "1rem" }}
             type="text"
             required
             placeholder="Kategori"
             value={category}
             onChange={(e) => addCategory(e)}
-          />
+          /> */}
 
           <input
             style={{
