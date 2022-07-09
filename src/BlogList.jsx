@@ -57,11 +57,15 @@ const BlogList = () => {
 
             <div className="post-tex-container">{post.body}</div>
             <div className="post-image-container">
-              <img
-                style={{ width: "100%", height: "100%" }}
-                src={post.imageFilename}
-                alt="..."
-              />
+              {!post.imageFileName ? (
+                <div></div>
+              ) : (
+                <img
+                  style={{ width: "100%", height: "100%" }}
+                  src={post.imageFileName}
+                  alt="..."
+                />
+              )}
             </div>
             {currentUser ? (
               <div className="delete-post">

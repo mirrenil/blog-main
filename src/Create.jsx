@@ -7,86 +7,89 @@ import { db } from "./firebase";
 import { storage } from "./firebase";
 import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useAuth } from "./contexts/AuthContext";
-import Creatable from "react-select/creatable";
+import AsyncSelect from "react-select/async";
 
-const categories = [
-  { value: 1, label: "Resor" },
-  { value: 2, label: "Familj" },
-];
+const customStyles = {
+  option: (provided, state) => ({
+    ...provided,
+    borderBottom: "1px dotted pink",
+    color: state.isSelected ? "red" : "blue",
+    padding: 20,
+  }),
+};
 
 const Create = ({ isAuth }) => {
   const { currentUser } = useAuth();
-  const [categoryInputValue, setCategoryInputValue] = useState("");
-  const [categoryValue, setCategoryValue] = useState("");
-  const [category, setCategory] = useState("");
+  // const [categoryInputValue, setCategoryInputValue] = useState("");
+  // const [categoryValue, setCategoryValue] = useState("");
+  // const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
   const navigate = useNavigate("");
   const postCollectionRef = collection(db, "blogginlägg");
-  const imageListRef = ref(storage, "images_v2/");
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const storageRef = ref(storage, "images_v2/");
 
   const createPost = async () => {
-    const storage = getStorage();
-    const imageRef = ref(storage, `images_v2/${image.name}`);
-    const imageFilename = await getDownloadURL(imageRef);
-
-    await addDoc(postCollectionRef, {
-      title,
-      body,
-      categoryValue,
-      imageFilename,
-      createdAt: Timestamp.now().toDate(),
-    });
+    if (image === null) {
+      await addDoc(postCollectionRef, {
+        title,
+        body,
+        imageFileName: "",
+        createdAt: Timestamp.now().toDate(),
+      });
+    } else {
+      const storage = getStorage();
+      const imageRef = ref(storage, `images_v2/${image.name}`);
+      const imageFileName = await getDownloadURL(imageRef);
+      await addDoc(postCollectionRef, {
+        title,
+        body,
+        imageFileName,
+        createdAt: Timestamp.now().toDate(),
+      });
+    }
     navigate("/");
   };
 
-  function handleImage(imageEvent) {
+  const handleImage = (imageEvent) => {
     setImage(imageEvent.target.files[0]);
-  }
+    console.log(imageEvent.target.files);
+  };
 
   const uploadImage = () => {
     const imageRef = ref(storage, `images_v2/${image.name}`);
-    uploadBytes(imageRef, image).then((snapshot) => {});
+    uploadBytes(imageRef, image).then((snapshot) => {
+      console.log("Image uploaded");
+    });
   };
 
-  const handleChange = (field, value) => {
-    switch (field) {
-      case "categories":
-        setCategory(value);
-        break;
-      default:
-        break;
-    }
+  const simularAsync = async (data, callback) => {
+    setTimeout(function() {
+      callback(data);
+    }, 10000);
+  };
+  const loadOptions = async () => {
+    //console.log("in firebase ");
+    let q = await simularAsync(
+      [
+        { value: "1", label: "1" },
+        { value: "2", label: "2" },
+      ],
+      (data) => {
+        //console.log("in callback ", data);
+        let q = data;
+      }
+    );
+    return q;
   };
 
-  const handleInputChange = (value) => {
-    setCategoryInputValue(value);
-    console.log(value);
+  const handleChange = (tags) => {
+    console.log(tags);
+    setSelectedCategory(tags);
   };
-
-  const handleKeyDown = (e) => {
-    if (!categoryInputValue) return;
-    switch (e.key) {
-      case "Enter":
-      case "Tab":
-        setCategoryValue([
-          ...categoryValue,
-          createCategory(categoryInputValue),
-        ]);
-        setCategoryInputValue("");
-        e.preventDefault();
-        break;
-      default:
-        break;
-    }
-  };
-
-  const createCategory = (label) => ({
-    label,
-    value: label,
-  });
 
   return (
     <div className="create">
@@ -108,37 +111,17 @@ const Create = ({ isAuth }) => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
-          <label>Kategori</label>
-          <Creatable
-            isClearable
-            isMulti
-            onChange={(value) => handleChange("categories", value)}
-            //onKeyDown={handleKeyDown}
-            options={categories}
-            value={categoryValue}
+          <AsyncSelect
+            placeholder="Välj kategori"
+            onChange={handleChange}
+            loadOptions={loadOptions}
+            styles={customStyles}
+            defaultOptions={true}
           />
 
-          <Creatable
-            isClearable
-            isMulti
-            inputValue={categoryInputValue}
-            menuIsOpen={false}
-            placeholder="Skriv och klicka på enter för att skapa en kategori"
-            onChange={(value) => handleChange("kategori", value)}
-            onKeyDown={handleKeyDown}
-            onInputChange={handleInputChange}
-            options={categories}
-            value={categoryValue}
-          />
-          {/* <input
-            style={{ maxWidth: "300px", marginTop: "1rem" }}
-            type="text"
-            required
-            placeholder="Kategori"
-            value={category}
-            onChange={(e) => addCategory(e)}
-          /> */}
-
+          {/* {selectedCategory.map((e) => {
+            return <li key={e.value}>{e.label}</li>;
+          })} */}
           <input
             style={{
               maxWidth: "100px",
@@ -146,7 +129,6 @@ const Create = ({ isAuth }) => {
               color: "transparent",
             }}
             type="file"
-            value={""}
             onChange={(e) => handleImage(e)}
             name="image"
             id="image"
@@ -154,13 +136,7 @@ const Create = ({ isAuth }) => {
             multiple={true}
           />
           <Button onClick={uploadImage}>Ladda upp bild</Button>
-          <>
-            {imageUrls
-              .filter((url) => url.id === postCollectionRef.id)
-              .map((url) => {
-                return <img src={url} alt="En bild på Kent's blogg..." />;
-              })}
-          </>
+
           <Button
             onClick={createPost}
             className="btn btn-primary w-50 mt-3"
