@@ -7,7 +7,7 @@ import { db } from "./firebase";
 import { storage } from "./firebase";
 import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useAuth } from "./contexts/AuthContext";
-import AsyncSelect from "react-select/async";
+import Select from "react-select/";
 
 const customStyles = {
   option: (provided, state) => ({
@@ -18,18 +18,16 @@ const customStyles = {
   }),
 };
 
-const Create = ({ isAuth }) => {
+const Create = () => {
   const { currentUser } = useAuth();
-  // const [categoryInputValue, setCategoryInputValue] = useState("");
-  // const [categoryValue, setCategoryValue] = useState("");
-  // const [category, setCategory] = useState("");
+  const [category, setCategory] = useState([]);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState(null);
-  const [imageUrls, setImageUrls] = useState([]);
+  // const [imageUrls, setImageUrls] = useState([]);
   const navigate = useNavigate("");
   const postCollectionRef = collection(db, "blogginlägg");
-  const [selectedCategory, setSelectedCategory] = useState([]);
+  //const [selectedCategory, setSelectedCategory] = useState([]);
   const storageRef = ref(storage, "images_v2/");
 
   const createPost = async () => {
@@ -60,35 +58,31 @@ const Create = ({ isAuth }) => {
   };
 
   const uploadImage = () => {
+    //for (let i = 0; i < 10; i++) {
     const imageRef = ref(storage, `images_v2/${image.name}`);
     uploadBytes(imageRef, image).then((snapshot) => {
       console.log("Image uploaded");
     });
+    //}
   };
 
-  const simularAsync = async (data, callback) => {
-    setTimeout(function() {
-      callback(data);
-    }, 10000);
-  };
-  const loadOptions = async () => {
-    //console.log("in firebase ");
-    let q = await simularAsync(
-      [
-        { value: "1", label: "1" },
-        { value: "2", label: "2" },
-      ],
-      (data) => {
-        //console.log("in callback ", data);
-        let q = data;
-      }
-    );
-    return q;
-  };
+  const categories = [
+    {
+      value: "1",
+      label: "Resor",
+    },
+    {
+      value: "2",
+      label: "Familj",
+    },
+    {
+      value: "3",
+      label: "Husbil",
+    },
+  ];
 
-  const handleChange = (tags) => {
-    console.log(tags);
-    setSelectedCategory(tags);
+  const handleChange = (e) => {
+    setCategory(e.target.value);
   };
 
   return (
@@ -111,12 +105,13 @@ const Create = ({ isAuth }) => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
-          <AsyncSelect
+          <Select
             placeholder="Välj kategori"
             onChange={handleChange}
-            loadOptions={loadOptions}
+            options={categories}
             styles={customStyles}
-            defaultOptions={true}
+            isMulti
+            isClearable
           />
 
           {/* {selectedCategory.map((e) => {
@@ -133,7 +128,7 @@ const Create = ({ isAuth }) => {
             name="image"
             id="image"
             accept="image/png, image/jpeg"
-            multiple={true}
+            multiple
           />
           <Button onClick={uploadImage}>Ladda upp bild</Button>
 

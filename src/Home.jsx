@@ -3,7 +3,6 @@ import BlogList from "./BlogList";
 import { db } from "./firebase";
 import {
   getDocs,
-  doc,
   orderBy,
   query,
   onSnapshot,
