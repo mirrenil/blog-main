@@ -32,6 +32,10 @@ const BlogList = () => {
     getPosts();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [postList]);
+
   const deletePost = async (id) => {
     const postDoc = doc(db, "blogginlägg", id);
     await deleteDoc(postDoc);
