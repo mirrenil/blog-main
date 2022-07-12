@@ -23,7 +23,7 @@ const Create = () => {
   const [category, setCategory] = useState([]);
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState([]);
   // const [imageUrls, setImageUrls] = useState([]);
   const navigate = useNavigate("");
   const postCollectionRef = collection(db, "blogginlägg");
@@ -40,30 +40,32 @@ const Create = () => {
       });
     } else {
       const storage = getStorage();
-      const imageRef = ref(storage, `images_v2/${image.name}`);
-      const imageFileName = await getDownloadURL(imageRef);
-      await addDoc(postCollectionRef, {
-        title,
-        body,
-        imageFileName,
-        createdAt: Timestamp.now().toDate(),
-      });
+      for (let i = 0; i < image.length; i++) {
+        const imageRef = ref(storage, `images_v2/${image.name}`);
+        const imageFileName = await getDownloadURL(imageRef);
+      }
     }
     navigate("/");
   };
 
   const handleImage = (imageEvent) => {
-    setImage(imageEvent.target.files[0]);
-    console.log(imageEvent.target.files);
+    const x = [];
+    for (let i = 0; i < imageEvent.target.files.length; i++) {
+      x.push(imageEvent.target.files[i]);
+    }
+    x.push(imageEvent.target.files);
+    setImage(x);
+    //setImage(imageEvent.target.files);
+    console.log(x[0].name);
   };
 
-  const uploadImage = () => {
-    //for (let i = 0; i < 10; i++) {
-    const imageRef = ref(storage, `images_v2/${image.name}`);
-    uploadBytes(imageRef, image).then((snapshot) => {
+  const uploadImage = async (image) => {
+    await image.forEach((image) => {
+      console.log(image.name);
+      const imageRef = ref(storage, `images_v2/${image.name}`);
+      uploadBytes(imageRef, image).then((snapshot) => {});
       console.log("Image uploaded");
     });
-    //}
   };
 
   const categories = [
@@ -130,7 +132,7 @@ const Create = () => {
             accept="image/png, image/jpeg"
             multiple
           />
-          <Button onClick={uploadImage}>Ladda upp bild</Button>
+          <Button onClick={(e) => uploadImage(image)}>Ladda upp bild</Button>
 
           <Button
             onClick={createPost}
