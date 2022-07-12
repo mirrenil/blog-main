@@ -43,6 +43,12 @@ const Create = () => {
       for (let i = 0; i < image.length; i++) {
         const imageRef = ref(storage, `images_v2/${image.name}`);
         const imageFileName = await getDownloadURL(imageRef);
+        await addDoc(postCollectionRef, {
+          title,
+          body,
+          imageFileName,
+          createdAt: Timestamp.now().toDate(),
+        });
       }
     }
     navigate("/");
