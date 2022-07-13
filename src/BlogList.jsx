@@ -61,14 +61,18 @@ const BlogList = () => {
 
             <div className="post-tex-container">{post.body}</div>
             <div className="post-image-container">
-              {!post.imageFileName ? (
+              {!post.arr ? (
                 <div></div>
               ) : (
-                <img
-                  style={{ width: "100%", height: "100%" }}
-                  src={post.imageFileName}
-                  alt="..."
-                />
+                post.arr.map((image) => {
+                  return (
+                    <img
+                      style={{ width: "100%", height: "100%" }}
+                      src={image}
+                      alt="..."
+                    />
+                  );
+                })
               )}
             </div>
             {currentUser ? (

@@ -31,7 +31,7 @@ const Create = () => {
   const storageRef = ref(storage, "images_v2/");
 
   const createPost = async () => {
-    if (image === null) {
+    if (image.length === 0) {
       await addDoc(postCollectionRef, {
         title,
         body,
@@ -40,29 +40,29 @@ const Create = () => {
       });
     } else {
       const storage = getStorage();
-      for (let i = 0; i < image.length; i++) {
-        const imageRef = ref(storage, `images_v2/${image.name}`);
+      const arr = [];
+      for (let i = 0; i < image.length - 1; i++) {
+        const imageRef = ref(storage, `images_v2/${image[i].name}`);
         const imageFileName = await getDownloadURL(imageRef);
-        await addDoc(postCollectionRef, {
-          title,
-          body,
-          imageFileName,
-          createdAt: Timestamp.now().toDate(),
-        });
+        arr.push(imageFileName);
       }
+      await addDoc(postCollectionRef, {
+        title,
+        body,
+        arr,
+        createdAt: Timestamp.now().toDate(),
+      });
     }
     navigate("/");
   };
 
   const handleImage = (imageEvent) => {
-    const x = [];
+    const multipleImages = [];
     for (let i = 0; i < imageEvent.target.files.length; i++) {
-      x.push(imageEvent.target.files[i]);
+      multipleImages.push(imageEvent.target.files[i]);
     }
-    x.push(imageEvent.target.files);
-    setImage(x);
-    //setImage(imageEvent.target.files);
-    console.log(x[0].name);
+    multipleImages.push(imageEvent.target.files);
+    setImage(multipleImages);
   };
 
   const uploadImage = async (image) => {
