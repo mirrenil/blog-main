@@ -36,6 +36,7 @@ const Create = () => {
         title,
         body,
         imageFileName: "",
+        category,
         createdAt: Timestamp.now().toDate(),
       });
     } else {
@@ -50,6 +51,7 @@ const Create = () => {
         title,
         body,
         arr,
+        category,
         createdAt: Timestamp.now().toDate(),
       });
     }
@@ -89,9 +91,9 @@ const Create = () => {
     },
   ];
 
-  const handleChange = (e) => {
-    setCategory(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   setCategory(e.target.value);
+  // };
 
   return (
     <div className="create">
@@ -115,16 +117,15 @@ const Create = () => {
           />
           <Select
             placeholder="Välj kategori"
-            onChange={handleChange}
+            onChange={(e) => setCategory(e)}
             options={categories}
             styles={customStyles}
             isMulti
             isClearable
           />
-
-          {/* {selectedCategory.map((e) => {
-            return <li key={e.value}>{e.label}</li>;
-          })} */}
+          {category.map((category, value) => {
+            return <li key={category.value}>{category.label}</li>;
+          })}
           <input
             style={{
               maxWidth: "100px",
