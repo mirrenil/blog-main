@@ -216,6 +216,7 @@
   .footer-links {
     display: flex;
     justify-content: space-around;
+    display: block;
   }
 
   .profile {
@@ -256,8 +257,77 @@
 
   .navBar {
     position: absolute;
-    left: 2%;
-    top: 2%;
+    left: 1%;
+    top: 1%;
     display: block;
+    font-size: 1.2rem;
+    z-index: 20;
+    height: 30rem;
   }
+
+  .navBar ul {
+    list-style-type: none;
+  }
+
+  .footer-links {
+    display: none;
+  }
+
+  .nav-item {
+    line-height: 50px;
+    margin-right: 0rem;
+    width: 10rem;
+  }
+
+
+  .nav-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    max-width: 1500px;
+  }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-top: 1pxsolid #fff;
+    position: absolute;
+    top: 100px;
+    left: -110%;
+    opacity: 1;
+    transition: all 0.5s ease;
+    font-size: 0rem;
+  }
+
+  .nav-menu.active {
+    background: linear-gradient(90deg, #d48166c7, #ebe375b7);
+    left: 0px;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: 1;
+    width: 500px;
+    font-size: 1.8rem;
+  }
+
+
+  .nav-links {
+    padding: 1.5rem;
+    width: 100%;
+    display: table;
+    color: black;
+    text-decoration: underline solid transparent;
+  }
+
+  .nav-icon {
+    position: absolute;
+    left: 1%;
+    top: 1%;
+    display: block;
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
 }
