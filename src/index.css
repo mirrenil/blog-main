@@ -40,6 +40,10 @@
   padding: 6px;
 }
 
+.navBar {
+  display: none;
+}
+
 .content {
   max-width: 600px;
   margin: 40px auto;
@@ -254,5 +258,6 @@
     position: absolute;
     left: 2%;
     top: 2%;
+    display: block;
   }
 }
