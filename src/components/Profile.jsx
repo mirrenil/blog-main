@@ -6,7 +6,6 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 
 export const Profile = () => {
-  /*   const [error, setError] = useState(""); */
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
   const { currentUser } = useAuth();
 
@@ -19,17 +18,7 @@ export const Profile = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignContent: "center",
-        alignItems: "center",
-        marginTop: "5rem",
-        marginBottom: "5rem",
-      }}
-    >
+    <div>
       {currentUser ? (
         <>
           <Card
@@ -47,11 +36,6 @@ export const Profile = () => {
                 alignItems: "center",
               }}
             >
-              {/* {error && <Alert variant="danger">{error}</Alert>} */}
-              {/* <strong>Inloggad som:</strong> {currentUser.email} */}
-              {/* <Link to="/update-profile" className="btn btn-primary w-50 mt-3">
-                Uppdatera profil
-              </Link> */}
               <Link to="/create" className="btn btn-primary w-50 mt-3">
                 Nytt blogginlägg
               </Link>
