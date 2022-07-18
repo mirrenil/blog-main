@@ -24,11 +24,9 @@ const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [image, setImage] = useState([]);
-  // const [imageUrls, setImageUrls] = useState([]);
   const navigate = useNavigate("");
   const postCollectionRef = collection(db, "blogginlägg");
-  //const [selectedCategory, setSelectedCategory] = useState([]);
-  const storageRef = ref(storage, "images_v2/");
+  //const storageRef = ref(storage, "images_v2/");
 
   const createPost = async () => {
     if (image.length === 0) {
@@ -41,16 +39,16 @@ const Create = () => {
       });
     } else {
       const storage = getStorage();
-      const arr = [];
+      const images = [];
       for (let i = 0; i < image.length - 1; i++) {
         const imageRef = ref(storage, `images_v2/${image[i].name}`);
         const imageFileName = await getDownloadURL(imageRef);
-        arr.push(imageFileName);
+        images.push(imageFileName);
       }
       await addDoc(postCollectionRef, {
         title,
         body,
-        arr,
+        images,
         category,
         createdAt: Timestamp.now().toDate(),
       });
@@ -77,23 +75,22 @@ const Create = () => {
   };
 
   const categories = [
+    // "0":
     {
-      value: "1",
+      value: 1,
       label: "Resor",
     },
+    // "1":
     {
-      value: "2",
+      value: 2,
       label: "Familj",
     },
+    // "2": ¨
     {
-      value: "3",
+      value: 3,
       label: "Husbil",
     },
   ];
-
-  // const handleChange = (e) => {
-  //   setCategory(e.target.value);
-  // };
 
   return (
     <div className="create">
