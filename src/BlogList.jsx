@@ -12,6 +12,8 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./contexts/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 const BlogList = () => {
   const { currentUser } = useAuth();
@@ -139,7 +141,7 @@ const BlogList = () => {
                     deletePost(post.id);
                   }}
                 >
-                  🗑
+                  <FontAwesomeIcon icon={solid("trash")} />
                 </button>
               </div>
             ) : null}

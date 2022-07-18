@@ -1,6 +1,6 @@
 import React from "react";
 //import logo from "./logo.png";
-//import BurgerMenu from "./BurgerMenu";
+import BurgerMenu from "./BurgerMenu";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -16,19 +16,7 @@ const Header = () => {
           Madde & Kenta på vift
         </button>
       </div>
-      {/* <aside>
-        <nav
-          style={{
-            position: "absolute",
-            top: "20%",
-            left: "40%",
-          }}
-        >
-          <Link style={{ color: "#333" }} to="/bloglist">
-            Läs tidigare blogginlägg
-          </Link>
-        </nav>
-      </aside> */}
+      <BurgerMenu />
     </div>
   );
 };
