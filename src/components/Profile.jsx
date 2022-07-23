@@ -24,25 +24,18 @@ export const Profile = () => {
           <Card
             className="text-center"
             style={{
-              width: "22rem",
               backgroundColor: "transparent",
               border: "none",
             }}
           >
-            <Card.Body
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Link to="/create" className="btn btn-primary w-50 mt-3">
+            <Card.Body className="profile-card">
+              <Link to="/create" className="btn btn-primary w-40 mt-3">
                 Nytt blogginlägg
               </Link>
               <Button
                 variant="link"
                 onClick={signUserOut}
-                className="btn btn-primary w-50 mt-3"
+                className="btn btn-primary w-30 mt-3 "
                 style={{ color: "white" }}
               >
                 Logga ut
