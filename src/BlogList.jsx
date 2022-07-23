@@ -14,6 +14,7 @@ import { db } from "./firebase";
 import { useAuth } from "./contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import * as Pagination from "./Pagination";
 
 const BlogList = () => {
   const { currentUser } = useAuth();
@@ -101,6 +102,21 @@ const BlogList = () => {
         <h3>
           {/* <button onClick={() => handleClick("Familj")}>Familj</button> */}
         </h3>
+      </div>
+      <div className="postList">
+        {postList.length > 0 ? (
+          <>
+            <Pagination
+              data={postList}
+              RenderComponent={postList}
+              title="Blogginlägg"
+              pageLimit={5}
+              dataLimit={10}
+            />
+          </>
+        ) : (
+          <p>No posts</p>
+        )}
       </div>
       {postList.flatMap((post) => {
         return (
