@@ -7,16 +7,6 @@ import { db } from "./firebase";
 import { storage } from "./firebase";
 import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useAuth } from "./contexts/AuthContext";
-import Select from "react-select/";
-
-const customStyles = {
-  option: (provided, state) => ({
-    ...provided,
-    borderBottom: "1px dotted pink",
-    color: state.isSelected ? "red" : "blue",
-    padding: 20,
-  }),
-};
 
 const Create = () => {
   const { currentUser } = useAuth();
@@ -26,9 +16,9 @@ const Create = () => {
   const [image, setImage] = useState([]);
   const navigate = useNavigate("");
   const postCollectionRef = collection(db, "blogginlägg");
-  //const storageRef = ref(storage, "images_v2/");
 
-  const createPost = async () => {
+  const createPost = async (e) => {
+    e.preventDefault();
     if (image.length === 0) {
       await addDoc(postCollectionRef, {
         title,
@@ -74,26 +64,8 @@ const Create = () => {
     });
   };
 
-  const categories = [
-    // "0":
-    {
-      value: 1,
-      label: "Resor",
-    },
-    // "1":
-    {
-      value: 2,
-      label: "Familj",
-    },
-    // "2": ¨
-    {
-      value: 3,
-      label: "Husbil",
-    },
-  ];
-
   return (
-    <div className="create">
+    <form className="create" onSubmit={createPost}>
       {currentUser ? (
         <>
           <input
@@ -112,17 +84,15 @@ const Create = () => {
             value={body}
             onChange={(e) => setBody(e.target.value)}
           />
-          <Select
-            placeholder="Välj kategori"
-            onChange={(e) => setCategory(e)}
-            options={categories}
-            styles={customStyles}
-            isMulti
-            isClearable
-          />
-          {category.map((category, value) => {
-            return <li key={category.value}>{category.label}</li>;
-          })}
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">Välj kategori</option>
+            <option value="Resor">Resor</option>
+            <option value="Familj">Familj</option>
+            <option value="Husbil">Husbil</option>
+          </select>
           <input
             style={{
               maxWidth: "100px",
@@ -139,7 +109,7 @@ const Create = () => {
           <Button onClick={(e) => uploadImage(image)}>Ladda upp bild</Button>
 
           <Button
-            onClick={createPost}
+            type="submit"
             className="btn btn-primary w-50 mt-3"
             style={{ color: "white" }}
           >
@@ -149,7 +119,7 @@ const Create = () => {
       ) : (
         <h1>Du måste vara inloggad för att skriva inlägg</h1>
       )}
-    </div>
+    </form>
   );
 };
 export default Create;
