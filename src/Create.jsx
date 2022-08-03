@@ -57,10 +57,9 @@ const Create = () => {
 
   const uploadImage = async (image) => {
     await image.forEach((image) => {
-      console.log(image.name);
       const imageRef = ref(storage, `images_v2/${image.name}`);
       uploadBytes(imageRef, image).then((snapshot) => {});
-      console.log("Image uploaded");
+      alert("Bild/bilder uppladdade!");
     });
   };
 
