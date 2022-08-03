@@ -31,7 +31,7 @@ const BurgerMenu = () => {
                 Hem
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink
                 to="/"
                 className="nav-links"
@@ -60,7 +60,7 @@ const BurgerMenu = () => {
               >
                 Husbil
               </NavLink>
-            </li>
+            </li> */}
             {currentUser ? (
               <>
                 <li className="nav-item">
