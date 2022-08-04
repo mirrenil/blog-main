@@ -36,14 +36,13 @@ const BlogList = () => {
     const filteredPosts = [];
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
       const posts = {
         id: doc.id,
         ...doc.data(),
       };
       filteredPosts.push(posts);
-      setPostList(filteredPosts);
     });
+    setPostList(filteredPosts);
   };
 
   useEffect(() => {
@@ -64,7 +63,7 @@ const BlogList = () => {
     };
 
     getPosts();
-  }, [categoryFilter]);
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
