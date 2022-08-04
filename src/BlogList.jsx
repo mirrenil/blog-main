@@ -7,29 +7,53 @@ import {
   orderBy,
   query,
   onSnapshot,
-  // where,
-  // limit,
+  limit,
+  where,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import * as Pagination from "./Pagination";
 
 const BlogList = () => {
   const { currentUser } = useAuth();
   const [postList, setPostList] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState("");
   const postCollectionRef = collection(db, "blogginlägg");
-  // const [total, setTotal] = useState(0);
-  // const [categoryList, setCategoryList] = useState([]);
-  // const [lastDoc, setLastDoc] = useState();
-  // const [fillter, setFillter] = useState(undefined);
+  const first = query(
+    postCollectionRef,
+    orderBy("createdAt", "desc"),
+    limit(10)
+  );
+
+  const getPosts = async (category) => {
+    const q = query(
+      postCollectionRef,
+      where("category", "==", `${category}`),
+      orderBy("createdAt", "desc")
+    );
+
+    const filteredPosts = [];
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const posts = {
+        id: doc.id,
+        ...doc.data(),
+      };
+      filteredPosts.push(posts);
+    });
+    setPostList(filteredPosts);
+  };
+
+  useEffect(() => {
+    getPosts(categoryFilter);
+  }, [categoryFilter]);
 
   useEffect(() => {
     const getPosts = async () => {
       await getDocs(postCollectionRef);
-      const q = query(postCollectionRef, orderBy("createdAt", "desc"));
-      onSnapshot(q, (snapshot) => {
+
+      onSnapshot(first, (snapshot) => {
         const posts = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -51,72 +75,18 @@ const BlogList = () => {
     console.log("Post deleted");
   };
 
-  // const handleClick = (name) => {
-  //   const new_list = postList.filter((post) =>
-  //     postList.category.includes(name)
-  //   );
-  //   setPostList(new_list);
-  // };
-
-  // useEffect(() => {
-  //   const filterCategory = async () => {
-  //     const colRef = collection(db, "blogginlägg");
-  //     const newRef = fillter
-  //       ? query(
-  //           colRef,
-  //           where("name", ">=", fillter),
-  //           where("name", "<=", fillter + "utf8")
-  //         )
-  //       : query(colRef, limit(10));
-  //     const documentSnapshots = await getDocs(newRef);
-  //     const lastVisible =
-  //       documentSnapshots.docs[documentSnapshots.docs.length - 1];
-  //     onSnapshot(colRef, (snapshot) => {
-  //       setTotal(snapshot.size);
-  //     });
-
-  //     onSnapshot(newRef, (snapshot) => {
-  //       let results = [];
-  //       snapshot.forEach((doc) => {
-  //         results.push({
-  //           id: doc.id,
-  //           ...doc.data(),
-  //         });
-  //       });
-  //       setCategoryList(results);
-  //     });
-  //     setLastDoc(lastVisible);
-  //   };
-  //   filterCategory();
-  // }, [fillter]);
-
   return (
     <div className="homePage">
       <div className="categories">
-        <h3>
-          {/* <button onClick={() => handleClick("Resor")}>Resor</button> */}
-        </h3>
-        <h3>
-          {/* <button onClick={() => handleClick("Husbil")}>Husbil</button> */}
-        </h3>
-        <h3>
-          {/* <button onClick={() => handleClick("Familj")}>Familj</button> */}
-        </h3>
-      </div>
-      <div className="postList">
-        {postList.length > 0 ? (
-          <>
-            <Pagination
-              data={postList}
-              RenderComponent={postList}
-              title="Blogginlägg"
-              pageLimit={5}
-              dataLimit={10}
-            />
-          </>
-        ) : (
-          <p>No posts</p>
-        )}
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+        >
+          <option value="">Välj kategori</option>
+          <option value="Resor">Resor</option>
+          <option value="Familj">Familj</option>
+          <option value="Husbil">Husbil</option>
+        </select>
       </div>
       {postList.flatMap((post) => {
         return (
@@ -132,7 +102,6 @@ const BlogList = () => {
                   .substring(0, 10)}
               </div>
             </div>
-
             <div className="post-tex-container">{post.body}</div>
             <div className="post-image-container">
               {!post.images ? (
