@@ -12,8 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./contexts/AuthContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { Button } from "react-bootstrap";
 
 const BlogList = () => {
   const { currentUser } = useAuth();
@@ -22,8 +21,8 @@ const BlogList = () => {
   const postCollectionRef = collection(db, "blogginlägg");
   const first = query(
     postCollectionRef,
-    orderBy("createdAt", "desc"),
-    limit(10)
+    orderBy("createdAt", "desc")
+    // limit(10)
   );
 
   const getPosts = async (category) => {
@@ -120,14 +119,13 @@ const BlogList = () => {
             </div>
             {currentUser ? (
               <div className="delete-post">
-                <button
-                  style={{ border: "none", background: "transparent" }}
+                <Button
                   onClick={() => {
                     deletePost(post.id);
                   }}
                 >
-                  <FontAwesomeIcon icon={solid("trash")} />
-                </button>
+                  Ta bort
+                </Button>
               </div>
             ) : null}
           </div>

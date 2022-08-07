@@ -1,5 +1,4 @@
 import React from "react";
-//import logo from "./logo.png";
 import BurgerMenu from "./BurgerMenu";
 import { useNavigate } from "react-router-dom";
 

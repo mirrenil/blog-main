@@ -26,9 +26,12 @@ export const Profile = () => {
             style={{
               backgroundColor: "transparent",
               border: "none",
+              height: "75vh",
             }}
           >
             <Card.Body className="profile-card">
+              <h3>Inloggad som {currentUser.email}</h3>
+
               <Link to="/create" className="btn btn-primary w-40 mt-3">
                 Nytt blogginlägg
               </Link>
