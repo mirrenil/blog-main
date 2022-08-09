@@ -17,37 +17,16 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
-            {/* {!isAuth ? ( */}
-            <>
-              <Route index element={<Home />} />
-              <Route path="/bloglist" element={<BlogList />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route
-                path="/login"
-                element={<Login /* setIsAuth={setIsAuth} */ />}
-              />
-            </>
-            {/*   ) : ( */}
-            <>
-              <Route index element={<Home />} />
-              <Route
-                path="/create"
-                element={<Create /* isAuth={isAuth} */ />}
-              />
-              <Route
-                path="/profile"
-                element={<Profile /* isAuth={isAuth} */ />}
-              />
-              <Route
-                path="/update-password"
-                element={<UpdateProfile /* isAuth={isAuth} */ />}
-              />
-              <Route
-                path="/forgot-password"
-                element={<ForgotPassword /* isAuth={isAuth} */ />}
-              />
-            </>
-            {/* )} */}
+            <Route index element={<Home />} />
+            <Route path="/bloglist" element={<BlogList />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+
+            <Route index element={<Home />} />
+            <Route path="/create" element={<Create />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/update-profile" element={<UpdateProfile />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
           </Route>
         </Routes>
       </AuthProvider>

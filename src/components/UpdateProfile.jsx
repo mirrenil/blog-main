@@ -42,19 +42,31 @@ export default function UpdateProfile() {
   }
   return (
     <>
-      <Card>
-        <Card.Body>
+      <Card
+        className="text-center mt-5"
+        style={{
+          backgroundColor: "transparent",
+          border: "none",
+          height: "75vh",
+          width: "100vw",
+          display: "flex",
+        }}
+      >
+        <Card.Body
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+          }}
+        >
           <h2 className="text-center mb-4">Update Profile</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                ref={emailRef}
-                required
-                defaultValue={currentUser.email}
-              />
+              <Form.Control type="email" ref={emailRef} required />
             </Form.Group>
             <Form.Group id="password">
               <Form.Label>Password</Form.Label>
@@ -72,13 +84,13 @@ export default function UpdateProfile() {
                 placeholder="Leave blank to keep the same password"
               />
             </Form.Group>
-            <Button disabled={loading} className="w-100" type="submit">
+            <Button disabled={loading} className="w-100 mt-2" type="submit">
               Update
             </Button>
           </Form>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
+      <div className="w-100 text-center">
         <Link to="/profile">Cancel</Link>
       </div>
     </>
