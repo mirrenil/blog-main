@@ -35,6 +35,10 @@ export const Profile = () => {
               <Link to="/create" className="btn btn-primary w-40 mt-3">
                 Nytt blogginlägg
               </Link>
+
+              <Link to="/update-profile" className="btn btn-primary w-40 mt-3">
+                Uppdatera lösenord
+              </Link>
               <Button
                 variant="link"
                 onClick={signUserOut}
