@@ -60,6 +60,7 @@
   align-items: center;
   justify-content: center;
   align-content: center;
+  margin-top: 4rem;
 }
 
 .homePage .post {
@@ -155,9 +156,8 @@
   align-items: center;
   justify-content: space-evenly;
   align-content: center;
-  margin-top: 5rem;
-  font-size: 1.6rem;
-  font-weight: bold;
+  margin-top: 1rem;
+  font-size: 1.2rem;
 }
 
 .categories button {

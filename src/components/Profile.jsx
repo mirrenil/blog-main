@@ -52,9 +52,31 @@ export const Profile = () => {
           <div className="w-100 text-center mt-2"></div>
         </>
       ) : (
-        <h2 style={{ marginTop: "4rem" }}>
-          Du måste vara inloggad för att se din profil
-        </h2>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            height: "75vh",
+          }}
+        >
+          <h2 style={{ marginTop: "1rem" }}>
+            Du måste vara inloggad för att se din profil
+          </h2>
+          <Button style={{ marginTop: "2rem" }}>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
+              to="/login"
+            >
+              Logga in
+            </Link>
+          </Button>
+        </div>
       )}
     </div>
   );

@@ -7,6 +7,7 @@ import { db } from "./firebase";
 import { storage } from "./firebase";
 import { getStorage, getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useAuth } from "./contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 const Create = () => {
   const { currentUser } = useAuth();
@@ -116,7 +117,29 @@ const Create = () => {
           </Button>
         </>
       ) : (
-        <h1>Du måste vara inloggad för att skriva inlägg</h1>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            height: "75vh",
+          }}
+        >
+          <h1>Du måste vara inloggad för att skriva inlägg</h1>
+          <Button style={{ marginTop: "2rem" }}>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
+              to="/login"
+            >
+              Logga in
+            </Link>
+          </Button>
+        </div>
       )}
     </form>
   );
