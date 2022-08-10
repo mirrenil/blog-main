@@ -1,4 +1,6 @@
 import React from "react";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -17,7 +19,31 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h1>Cannot find the page you are searching for.</h1>;
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            alignContent: "center",
+            height: "75vh",
+          }}
+        >
+          <h1>Tyvärr hittades inte sidan du sökte efter.</h1>
+          <Button style={{ marginTop: "2rem" }}>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
+              to="/login"
+            >
+              Gå till startsidan
+            </Link>
+          </Button>
+        </div>
+      );
     }
 
     return this.props.children;
