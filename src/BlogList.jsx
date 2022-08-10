@@ -7,7 +7,6 @@ import {
   orderBy,
   query,
   onSnapshot,
-  limit,
   where,
 } from "firebase/firestore";
 import { db } from "./firebase";
@@ -76,17 +75,6 @@ const BlogList = () => {
 
   return (
     <div className="homePage">
-      <div className="categories">
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-        >
-          <option value="">Välj kategori</option>
-          <option value="Resor">Resor</option>
-          <option value="Familj">Familj</option>
-          <option value="Husbil">Husbil</option>
-        </select>
-      </div>
       {postList.flatMap((post) => {
         return (
           <div className="post" key={post.id}>
@@ -131,6 +119,17 @@ const BlogList = () => {
           </div>
         );
       })}
+      <div className="categories">
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+        >
+          <option value="">Välj kategori</option>
+          <option value="Resor">Resor</option>
+          <option value="Familj">Familj</option>
+          <option value="Husbil">Husbil</option>
+        </select>
+      </div>
     </div>
   );
 };
