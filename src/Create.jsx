@@ -69,22 +69,15 @@ const Create = () => {
       {currentUser ? (
         <>
           <input
-            style={{ maxWidth: "300px", marginTop: "4rem" }}
+            style={{ maxWidth: "300px", marginTop: "2rem" }}
             type="text"
             required
             placeholder="Titel"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <textarea
-            style={{ maxWidth: "400px", minHeight: "300px" }}
-            type="text"
-            required
-            placeholder="Skriv ditt inlägg här"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-          />
           <select
+            style={{ maxWidth: "300px" }}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -93,6 +86,15 @@ const Create = () => {
             <option value="Familj">Familj</option>
             <option value="Husbil">Husbil</option>
           </select>
+          <textarea
+            style={{ maxWidth: "400px", minHeight: "300px" }}
+            type="text"
+            required
+            placeholder="Skriv ditt inlägg här"
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+          />
+
           <input
             style={{
               maxWidth: "100px",
@@ -106,7 +108,12 @@ const Create = () => {
             accept="image/png, image/jpeg"
             multiple
           />
-          <Button onClick={(e) => uploadImage(image)}>Ladda upp bild</Button>
+          <Button
+            className="btn btn-primary w-50 mt-3"
+            onClick={(e) => uploadImage(image)}
+          >
+            Ladda upp bild
+          </Button>
 
           <Button
             type="submit"

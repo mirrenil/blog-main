@@ -32,17 +32,17 @@ export const Profile = () => {
             <Card.Body className="profile-card">
               <h3>Inloggad som {currentUser.email}</h3>
 
-              <Link to="/create" className="btn btn-primary w-40 mt-3">
+              <Link to="/create" className="btn btn-primary w-50 mt-3">
                 Nytt blogginlägg
               </Link>
 
-              <Link to="/update-profile" className="btn btn-primary w-40 mt-3">
+              <Link to="/update-profile" className="btn btn-primary w-50 mt-3">
                 Uppdatera lösenord
               </Link>
               <Button
                 variant="link"
                 onClick={signUserOut}
-                className="btn btn-primary w-30 mt-3 "
+                className="btn btn-primary w-50 mt-3 "
                 style={{ color: "white" }}
               >
                 Logga ut

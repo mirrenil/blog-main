@@ -11,10 +11,6 @@
   background: linear-gradient(90deg, #8fc5bc, #a3b2dd);
 }
 
-.body {
-  background-color: grey;
-}
-
 /*  header styles */
 .header {
   display: flex;
@@ -232,12 +228,6 @@
     margin: 2rem;
   }
 
-  .footer-links {
-    display: flex;
-    justify-content: space-around;
-    display: block;
-  }
-
   .profile {
     margin-right: 1rem;
     font-size: 1.2rem;
@@ -271,6 +261,10 @@
     margin-bottom: 1rem;
   }
 
+  .homePage {
+    margin-top: 2rem;
+  }
+
   .homePage .post {
     width: 300px;
     height: auto;
@@ -295,10 +289,6 @@
 
   .navBar ul {
     list-style-type: none;
-  }
-
-  .footer-links {
-    display: none;
   }
 
   .nav-item {
@@ -331,18 +321,19 @@
   }
 
   .nav-menu.active {
-    background: linear-gradient(90deg, #d48166c7, #ebe375b7);
+    background: linear-gradient(90deg, #8fc5bc, #a3b2dd);
     left: 0px;
     opacity: 1;
-    transition: all 0.5s ease;
+    transition: all 0.9s ease;
     z-index: 1;
-    width: 500px;
+    width: 100vw;
+    height: 100vh;
     font-size: 1.8rem;
   }
 
 
   .nav-links {
-    padding: 1.5rem;
+    padding: 0rem;
     width: 100%;
     display: table;
     color: black;

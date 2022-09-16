@@ -8,6 +8,7 @@ import {
   query,
   onSnapshot,
   where,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./contexts/AuthContext";
@@ -18,11 +19,7 @@ const BlogList = () => {
   const [postList, setPostList] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("");
   const postCollectionRef = collection(db, "blogginlägg");
-  const first = query(
-    postCollectionRef,
-    orderBy("createdAt", "desc")
-    // limit(10)
-  );
+  const first = query(postCollectionRef, orderBy("createdAt", "desc"));
 
   const getPosts = async (category) => {
     const q = query(
@@ -73,8 +70,25 @@ const BlogList = () => {
     console.log("Post deleted");
   };
 
+  const updatePost = async (id) => {
+    const postDoc = doc(db, "blogginlägg", id);
+    await setDoc(postDoc);
+    console.log("Post updated");
+  };
+
   return (
     <div className="homePage">
+      <div className="categories">
+        <select
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+        >
+          <option value="">Välj kategori</option>
+          <option value="Resor">Resor</option>
+          <option value="Familj">Familj</option>
+          <option value="Husbil">Husbil</option>
+        </select>
+      </div>
       {postList.flatMap((post) => {
         return (
           <div className="post" key={post.id}>
@@ -108,28 +122,25 @@ const BlogList = () => {
             {currentUser ? (
               <div className="delete-post">
                 <Button
+                  style={{ marginRight: "10px" }}
                   onClick={() => {
                     deletePost(post.id);
                   }}
                 >
                   Ta bort
                 </Button>
+                <Button
+                  onClick={() => {
+                    updatePost(post.title, post.body);
+                  }}
+                >
+                  Ändra
+                </Button>
               </div>
             ) : null}
           </div>
         );
       })}
-      <div className="categories">
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-        >
-          <option value="">Välj kategori</option>
-          <option value="Resor">Resor</option>
-          <option value="Familj">Familj</option>
-          <option value="Husbil">Husbil</option>
-        </select>
-      </div>
     </div>
   );
 };

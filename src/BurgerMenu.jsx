@@ -6,7 +6,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro"; // <-- i
 
 const BurgerMenu = () => {
   const [open, setOpen] = useState(false);
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   const handleClick = () => setOpen(!open);
 
@@ -27,40 +27,15 @@ const BurgerMenu = () => {
 
           <ul className={open ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <NavLink to="/" className="nav-links" activeclassname="active">
+              <NavLink
+                to="/"
+                className="nav-links"
+                activeclassname="active"
+                onClick={handleClick}
+              >
                 Hem
               </NavLink>
             </li>
-            {/* <li className="nav-item">
-              <NavLink
-                to="/"
-                className="nav-links"
-                activeclassname="active"
-                onClick={handleClick}
-              >
-                Resor
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                to="/"
-                className="nav-links"
-                activeclassname="active"
-                onClick={handleClick}
-              >
-                Familj
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                to="/"
-                className="nav-links"
-                activeclassname="active"
-                onClick={handleClick}
-              >
-                Husbil
-              </NavLink>
-            </li> */}
             {currentUser ? (
               <>
                 <li className="nav-item">
@@ -70,17 +45,29 @@ const BurgerMenu = () => {
                     activeclassname="active"
                     onClick={handleClick}
                   >
-                    Profil
+                    Min profil
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  {/* <NavLink
+                  <NavLink
                     to="/create"
                     className="nav-links"
                     activeclassname="active"
+                    onClick={handleClick}
                   >
                     Nytt blogginlägg
-                  </NavLink> */}
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink
+                    to="/"
+                    className="nav-links"
+                    activeclassname="active"
+                    onClick={logout}
+                    onLoad={handleClick}
+                  >
+                    Logga ut
+                  </NavLink>
                 </li>
               </>
             ) : (

@@ -1,7 +1,7 @@
 import React from "react";
 import BlogList from "./BlogList";
 
-function Home(/* { isAuth } */) {
+function Home() {
   return (
     <div>
       <BlogList />
