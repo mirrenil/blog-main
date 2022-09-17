@@ -36,8 +36,8 @@ export const Profile = () => {
                 Nytt blogginlägg
               </Link>
 
-              <Link to="/update-profile" className="btn btn-primary w-50 mt-3">
-                Uppdatera lösenord
+              <Link to="/" className="btn btn-primary w-50 mt-3">
+                Hem
               </Link>
               <Button
                 variant="link"

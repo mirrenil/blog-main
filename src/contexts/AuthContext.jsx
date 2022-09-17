@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { auth } from "../firebase";
 import {
+  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
@@ -49,7 +50,7 @@ export function AuthProvider({ children }) {
       console.log(user);
     } catch (error) {
       console.log(error.message);
-      alert(error.message + " Wrong password or email, please try again");
+      alert(" Wrong password or email, please try again");
     }
   };
 
@@ -62,13 +63,17 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const resetPassword = async () => {
-    try {
-      const reset = await sendPasswordResetEmail(auth, loginEmail);
-      console.log(reset);
-    } catch (error) {
-      console.log(error.message);
-    }
+  const resetPassword = () => {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, loginEmail)
+      .then(() => {
+        alert("Password reset email sent!"); // Password reset email sent!
+        // ..
+      })
+      .catch((error) => {
+        console.log(error.message);
+        alert(error.message);
+      });
   };
 
   const updateEmail = async () => {
@@ -80,17 +85,15 @@ export function AuthProvider({ children }) {
     }
   };
 
-  const updatePassword = async () => {
-    try {
-      const updatePassword = await currentUser.updatePassword(
-        auth,
-        loginPassword
-      );
-      console.log(updatePassword);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  // const updatePassword = async (auth, loginPassword) => {
+  //   try {
+  //     const updatedPassword = await updatePassword(auth, loginPassword);
+  //     console.log(updatedPassword + "password has been updated");
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  //   return;
+  // };
 
   const value = {
     currentUser,
@@ -99,7 +102,6 @@ export function AuthProvider({ children }) {
     logout,
     resetPassword,
     updateEmail,
-    updatePassword,
     setLoginEmail,
     setLoginPassword,
     setRegisterEmail,
