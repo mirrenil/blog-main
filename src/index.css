@@ -352,4 +352,8 @@
     cursor: pointer;
   }
 
+  .footer {
+    display: none;
+  }
+
 }

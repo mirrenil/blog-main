@@ -129,13 +129,13 @@ const BlogList = () => {
                 >
                   Ta bort
                 </Button>
-                <Button
+                {/* <Button
                   onClick={() => {
                     updatePost(post.title, post.body);
                   }}
                 >
                   Ändra
-                </Button>
+                </Button> */}
               </div>
             ) : null}
           </div>
