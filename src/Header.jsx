@@ -1,5 +1,5 @@
 import React from "react";
-import BurgerMenu from "./BurgerMenu";
+//import BurgerMenu from "./BurgerMenu";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
@@ -15,7 +15,7 @@ const Header = () => {
           Madde & Kenta på vift
         </button>
       </div>
-      <BurgerMenu />
+      {/* <BurgerMenu /> */}
     </div>
   );
 };
