@@ -8,7 +8,6 @@ import {
   query,
   onSnapshot,
   where,
-  setDoc,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./contexts/AuthContext";
@@ -70,11 +69,11 @@ const BlogList = () => {
     console.log("Post deleted");
   };
 
-  const updatePost = async (id) => {
-    const postDoc = doc(db, "blogginlägg", id);
-    await setDoc(postDoc);
-    console.log("Post updated");
-  };
+  // const updatePost = async (id) => {
+  //   const postDoc = doc(db, "blogginlägg", id);
+  //   await setDoc(postDoc);
+  //   console.log("Post updated");
+  // };
 
   return (
     <div className="homePage">
